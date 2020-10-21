@@ -189,7 +189,13 @@ namespace ImGuizmo
       const vec_t& operator + () const { return (*this); }
       float Length() const { return sqrtf(x * x + y * y + z * z); };
       float LengthSq() const { return (x * x + y * y + z * z); };
-      vec_t Normalize() { (*this) *= (1.f / Length()); return (*this); }
+      vec_t Normalize() {
+         if (Length() == 0) {
+            return (*this) *= 0;
+         }
+         (*this) *= (1.f / Length());
+         return (*this);
+      }
       vec_t Normalize(const vec_t& v) { this->Set(v.x, v.y, v.z, v.w); this->Normalize(); return (*this); }
       vec_t Abs() const;
 
